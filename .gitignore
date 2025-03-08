@@ -5,3 +5,5 @@ zig-cache/
 .zig-cache/
 config.yaml
 tokens.json
+tokens.zon
+apptoken.zon

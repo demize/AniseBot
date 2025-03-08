@@ -13,6 +13,25 @@ var mtx: std.Thread.Mutex = .{};
 var cond: std.Thread.Condition = .{};
 var alive: bool = true;
 
+const Anise = struct {
+    pub fn updateToken(_: *Anise, token: lq.LiquoriceToken) void {
+        switch (token) {
+            .App => |app_token| {
+                const token_file = std.fs.cwd().createFile("apptoken.zon", .{}) catch |err| {
+                    std.debug.panic("fatal error opening token file: {any}", .{err});
+                };
+                defer token_file.close();
+                std.zon.stringify.serialize(app_token, .{}, token_file.writer()) catch |err| {
+                    std.debug.panic("fatal error saving token file: {any}", .{err});
+                };
+            },
+            .User => {
+                std.debug.panic("unimplemented", .{});
+            },
+        }
+    }
+};
+
 pub fn main() !void {
     const gpa, const is_debug = gpa: {
         if (builtin.os.tag == .wasi) break :gpa .{ std.heap.wasm_allocator, false };
@@ -32,7 +51,8 @@ pub fn main() !void {
     const config_file = try std.fs.cwd().readFileAlloc(gpa, "config.yaml", 1024);
     defer gpa.free(config_file);
     const config = try (try yaml.Yaml.load(arena.allocator(), config_file)).parse(arena.allocator(), lq.Config);
-    var liquorice = try lq.LiquoriceClient.init(gpa, config);
+    var bot: Anise = .{};
+    var liquorice = try lq.LiquoriceClient.init(gpa, config, lq.bot.LiquoriceBot.init(&bot));
     std.debug.print("Starting!\n", .{});
     try liquorice.start();
     std.posix.sigaction(std.posix.SIG.INT, &std.posix.Sigaction{
