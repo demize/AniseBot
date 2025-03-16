@@ -1,0 +1,13 @@
+certificate version 0.1
+pusher 34dc11e9 1742089318 -0400
+pushee git.msvcrt.zip:AniseBot.git
+nonce 1742089318-ea8ed01d5f24bc7491a1ce5bbda55e0bbbaded11
+
+0000000000000000000000000000000000000000 c04be9b43168e34f5418fccc149601d0db5fa410 refs/heads/main
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQQ0AFdlIjX9aj0PPy2uzmloNNwR6QUCZ9YsZgAKCRCuzmloNNwR
+6ScxAQD4ui+ap9/HGTG7SE0lZcgecSndTWB3KtoEzjw+4hLH/QD/URSBA+Rkv7Ho
+eFPmeQMXZtC4knFyWyKZ8v5SpPD5SwU=
+=KhFn
+-----END PGP SIGNATURE-----
