@@ -1,8 +1,7 @@
 name: mirror to github
 
 on: 
-    repository_dispatch:
-        types: [mirror]
+    workflow_dispatch
 
 concurrency:
     group: mirror-to-github
